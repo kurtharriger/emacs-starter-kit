@@ -1,4 +1,31 @@
-(setq load-path (cons "~/.emacs.d" load-path))
+;; find and load all el files in the folders having the same 
+;; name as current user and current system 
+
+(setq dotfiles-dir (file-name-directory
+                    (or (buffer-file-name) load-file-name)))
+
+(add-to-list 'load-path dotfiles-dir)
+
+(setq system-specific-dir (concat dotfiles-dir system-name)
+      user-specific-dir (concat dotfiles-dir user-login-name))
+
+(if (file-exists-p user-specific-dir)
+  (add-to-list 'load-path user-specific-dir)
+  (mapc #'load (directory-files user-specific-dir nil ".*init\.el$")))
+
+(if (file-exists-p system-specific-dir)
+  (add-to-list 'load-path system-specific-dir)
+  (mapc #'load (directory-files user-specific-dir nil ".*init\.el$")))
+
+;; package manager
+
+(require 'package)
+(dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
+                  ("elpa" . "http://tromey.com/elpa/")))
+  (add-to-list 'package-archives source t))
+(package-initialize)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; language modes
@@ -173,3 +200,4 @@
 ;; git-emacs package. Using magit for now instead
  ;(add-to-list 'load-path "~/.emacs.d/git-emacs")
  ;(autoload 'git-emacs "git-emacs")
+
