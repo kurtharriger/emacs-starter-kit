@@ -40,10 +40,10 @@
 
 ;;;;;;;;;;;;;;;;
 ;; color theme
-(add-to-list 'load-path "~/.emacs.d/color-theme")
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-arjen)
+;;(add-to-list 'load-path "~/.emacs.d/color-theme")
+;;(require 'color-theme)
+;;(color-theme-initialize)
+;;(color-theme-arjen)
 
 ;; set up alt key to work as META on Mac
 (set-keyboard-coding-system 'mac-roman)

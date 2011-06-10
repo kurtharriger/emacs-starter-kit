@@ -3,6 +3,11 @@
       (normal-top-level-add-to-load-path '("."))
       (normal-top-level-add-subdirs-to-load-path))
 
+;; jde must load before color-theme as the 
+;; replace-in-string function defined there does 
+;; not work with jde
+(require 'jde)
+
 (defvar after-make-console-frame-hooks '()
 "Hooks to run after creating a new TTY frame")
 (defvar after-make-window-system-frame-hooks '()
@@ -26,9 +31,9 @@
 (add-hook 'after-make-window-system-frame-hooks
           '(lambda ()
              (require 'alpha)
-;;             (require 'color-theme-ir-black)
-;;             (modify-frame-parameters (selected-frame) '((alpha . 85)))
-;;             (color-theme-ir-black)
+             (require 'color-theme-ir-black)
+             (modify-frame-parameters (selected-frame) '((alpha . 85)))
+             (color-theme-ir-black)
              ;;  (global-set-key (kbd "\C-x\C-c") 'save-buffers-kill-emacs)
              ;; (global-unset-key (kbd "\C-x\C-c"))
              ;; (global-set-key (kbd "s-w") 'delete-frame)
@@ -91,7 +96,7 @@
 ;;(setq mac-command-modifier 'meta)
 ;;(setq mac-option-modifier nil)
 
-(require 'jde)
+
 
 
 
